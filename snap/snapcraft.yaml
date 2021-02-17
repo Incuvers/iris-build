@@ -137,7 +137,8 @@ parts:
     plugin: python
     source-type: git
     source-branch: develop
-    source: git@github.com:Incuvers/montior.git
+    source-depth: 1
+    source: git@github.com:Incuvers/monitor.git
     build-environment:
       - PYTHONPATH: $SNAP/usr/lib/python3/dist-packages:$SNAP/lib/python3.8/site-packages
     build-packages:
