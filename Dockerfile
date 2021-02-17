@@ -7,7 +7,8 @@ RUN apt dist-upgrade --yes
 RUN apt install --yes \
       curl \
       jq \
-      squashfs-tools
+      squashfs-tools \
+      git
 
 # Grab the core18 snap (for backwards compatibility) from the stable channel and
 # unpack it in the proper place.
@@ -36,10 +37,12 @@ RUN echo 'exec "$SNAP/usr/bin/python3" "$SNAP/bin/snapcraft" "$@"' >> /snap/bin/
 RUN chmod +x /snap/bin/snapcraft
 
 # Add ssh key passing to intermediate build step to squash traces
+# https://vsupalov.com/build-docker-image-clone-private-repo-ssh-key/
 # add ssh key to github repository credentials on build
 ARG SSH_PRIVATE_KEY
 RUN mkdir /root/.ssh/
 RUN echo "${SSH_PRIVATE_KEY}" > /root/.ssh/id_rsa
+RUN chmod 0700 /root/.ssh/id_rsa
 
 # make sure your domain is accepted
 RUN touch /root/.ssh/known_hosts
@@ -72,7 +75,7 @@ ENV SNAP_ARCH="arm64"
 COPY .env /.env
 COPY build.sh /build.sh
 COPY s3_push.py /s3_push.py
-COPY COPY snap/ /snap/
-COPY COPY secrets/ /secrets/
+COPY snap/ /snap/
+COPY secrets/ /secrets/
 
 ENTRYPOINT [ "/build.sh" ]
