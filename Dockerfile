@@ -48,8 +48,8 @@ RUN chmod 0700 /root/.ssh/id_rsa
 RUN touch /root/.ssh/known_hosts
 RUN ssh-keyscan github.com >> /root/.ssh/known_hosts
 # this is just a sanity check (remove after snapcraft pull on monitor works)
-RUN git clone git@github.com:Incuvers/monitor.git
-RUN rm -r monitor
+# RUN git clone git@github.com:Incuvers/monitor.git
+# RUN rm -r monitor
 
 # Multi-stage build, only need the snaps from the builder. Copy them one at a
 # time so they can be cached.
@@ -58,6 +58,9 @@ COPY --from=intermediate /snap/core18 /snap/core18
 COPY --from=intermediate /snap/core20 /snap/core20
 COPY --from=intermediate /snap/snapcraft /snap/snapcraft
 COPY --from=intermediate /snap/bin/snapcraft /snap/bin/snapcraft
+
+# Set the work directory and create the folder to copy source code into
+WORKDIR /app
 
 # Generate locale.
 RUN apt update && apt dist-upgrade --yes && apt install --yes sudo locales && locale-gen en_US.UTF-8
@@ -70,12 +73,13 @@ ENV PATH="/snap/bin:$PATH"
 ENV SNAP="/snap/snapcraft/current"
 ENV SNAP_NAME="snapcraft"
 ENV SNAP_ARCH="arm64"
+ENV SNAPCRAFT_BUILD_ENVIRONMENT="host"
 
 # copy build source code
-COPY .env /.env
-COPY build.sh /build.sh
-COPY s3_push.py /s3_push.py
-COPY snap/ /snap/
-COPY secrets/ /secrets/
+COPY .env /app/.env
+COPY build.sh /app/build.sh
+COPY s3_push.py /app/s3_push.py
+COPY snap/ /app/snap/
+COPY secrets/ /app/secrets/
 
-ENTRYPOINT [ "/build.sh" ]
+# ENTRYPOINT [ "/build.sh" ]
