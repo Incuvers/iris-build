@@ -5,4 +5,4 @@
 build
 
 # ignore keys
-secrets/*.key
+docker/secrets/*.key

@@ -1,0 +1,26 @@
+---
+name: yamllint
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+
+jobs:
+  lint:
+    name: Iris Build Lint
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Check out the codebase.
+        uses: actions/checkout@v2
+
+      - name: Set up Python (latest).
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.8'
+
+      - name: Install lint dependencies.
+        run: |
+          python3 -m pip install yamllint
+      - name: Yamllint all .yaml files
+        run: yamllint .

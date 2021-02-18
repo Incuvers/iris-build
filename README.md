@@ -1,27 +1,13 @@
 # Iris Build Action
+[![shellcheck](https://github.com/Incuvers/iris-build-action/actions/workflows/shellcheck.yaml/badge.svg?branch=master)](https://github.com/Incuvers/iris-build-action/actions/workflows/shellcheck.yaml) [![yamllint](https://github.com/Incuvers/iris-build-action/actions/workflows/yamllint.yaml/badge.svg?branch=master)](https://github.com/Incuvers/iris-build-action/actions/workflows/yamllint.yaml)
+
+![img](/docs/img/Incuvers-black.png)
 
 Modified: 2020-02
 
-Dockerized github action for building snaps
+Dockerized github action for building snap applications for the Incuvers Realtime Imaging System (IRIS) platform.
 
-This action prints "Hello World" to the log or "Hello" + the name of a person to greet. To learn how this action was built, see "[Creating a Docker container action](https://help.github.com/en/articles/creating-a-docker-container-action)" in the GitHub Help documentation.
-
-## Inputs
-
-### `who-to-greet`
-
-**Required** The name of the person to greet. Default `"World"`.
-
-## Outputs
-
-### `time`
-
-The time we greeted you.
-
-## Example usage
-
+## Action Usage
 ```yaml
-uses: actions/hello-world-docker-action@master
-with:
-  who-to-greet: 'Mona the Octocat'
+uses: actions/iris-build-action@master
 ```
