@@ -43,6 +43,8 @@ COPY --from=intermediate /snap/core20 /snap/core20
 COPY --from=intermediate /snap/snapcraft /snap/snapcraft
 COPY --from=intermediate /snap/bin/snapcraft /snap/bin/snapcraft
 
+ENV DEBIAN_FRONTEND=noninteractive
+
 # Set the work directory and create the folder to copy source code into
 WORKDIR /srv
 
@@ -50,7 +52,7 @@ WORKDIR /srv
 RUN apt update && apt dist-upgrade --yes && apt install --yes sudo locales && locale-gen en_US.UTF-8
 # install required pip and apt dependancies
 COPY apt-pkgs.txt /srv/apt-pkgs.txt
-RUN xargs -a apt-pkgs.txt sudo apt install -y
+RUN xargs -a apt-pkgs.txt sudo apt install -y --no-install-recommends
 COPY requirements.txt /srv/requirements.txt
 RUN python3 -m pip install -r requirements.txt
 
