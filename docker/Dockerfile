@@ -1,5 +1,5 @@
 
-FROM ubuntu:xenial as intermediate
+FROM arm64v8/ubuntu:xenial as intermediate
 
 # Grab dependencies
 RUN apt update
@@ -37,7 +37,7 @@ RUN chmod +x /snap/bin/snapcraft
 
 # Multi-stage build, only need the snaps from the builder. Copy them one at a
 # time so they can be cached.
-FROM ubuntu:latest
+FROM arm64v8/ubuntu:latest
 COPY --from=intermediate /snap/core18 /snap/core18
 COPY --from=intermediate /snap/core20 /snap/core20
 COPY --from=intermediate /snap/snapcraft /snap/snapcraft
