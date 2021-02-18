@@ -1,4 +1,6 @@
-FROM arm64v8/ubuntu:latest
+FROM snapcraft/ubuntu-base
+
+LABEL Christian Sargusingh "https://github.com/cSDes1gn"
 
 ENV DEBIAN_FRONTEND=noninteractive
 
@@ -12,9 +14,6 @@ COPY apt-pkgs.txt /srv/apt-pkgs.txt
 RUN xargs -a apt-pkgs.txt sudo apt install -y --no-install-recommends
 COPY requirements.txt /srv/requirements.txt
 RUN python3 -m pip install -r requirements.txt
-
-ENV PATH /snap/bin:$PATH
-RUN systemctl enable snapd
 
 # install snapcraft and core images for arm64
 RUN snap install snapcraft --classic
