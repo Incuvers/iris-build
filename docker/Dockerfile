@@ -13,9 +13,12 @@ RUN xargs -a apt-pkgs.txt sudo apt install -y --no-install-recommends
 COPY requirements.txt /srv/requirements.txt
 RUN python3 -m pip install -r requirements.txt
 
+ENV PATH /snap/bin:$PATH
+RUN systemctl enable snapd
+
 # install snapcraft and core images for arm64
 RUN snap install snapcraft --classic
-RUN snap install core18--classic
+RUN snap install core18 --classic
 RUN snap install core20 --classic
 
 # https://vsupalov.com/build-docker-image-clone-private-repo-ssh-key/
