@@ -10,7 +10,7 @@ source .env
 # clean snapcraft build container
 snapcraft clean;
 
-# build snapcraft in lxc container
+# build snapcraft in using host container
 snapcraft --debug;
 
 # push .snap file to s3 bucket
