@@ -1,0 +1,227 @@
+---
+title: IRIS by Incuvers
+name: iris-incuvers
+version: '1.02'
+summary: IRIS
+description: |
+  Accompanying software application for IRIS (Incuvers Real-time Imaging System);
+  a personalized, IoT cell incubator with imaging capabilities.
+grade: devel
+architectures:
+  - build-on: arm64
+    run-on: arm64
+base: core20
+confinement: devmode
+
+apps:
+  daemon:
+    command: bin/daemon
+    daemon: oneshot
+    plugs:
+      - hostname-control
+      - avahi-observe
+      - avahi-control
+      - network
+      - network-observe
+      - network-control
+      - network-manager
+      - network-bind
+      - network-setup-control
+      - network-setup-observe
+    environment:
+      PYTHONPATH: $SNAP/usr/lib/python3/dist-packages:$SNAP/lib/python3.8/site-packages
+      PATH: $SNAP/usr/sbin:$SNAP/usr/bin:$SNAP/sbin:$SNAP/bin:$PATH
+
+  webserver:
+    command: bin/runwebserver
+    daemon: simple
+    plugs:
+      - home
+      - network
+      - network-bind
+    environment:
+      PATH: $SNAP/usr/sbin:$SNAP/usr/bin:$SNAP/sbin:$SNAP/bin:$PATH
+      PYTHONPATH: $SNAP/usr/lib/python3/dist-packages:$SNAP/lib/python3.8/site-packages
+      FLASK_ENV: production
+      MONTIOR_NETPLAN: /etc/netplan
+      LD_LIBRARY_PATH: $LD_LIBRARY_PATH:$SNAP/lib/tcam-0:$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/blas:$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/lapack:$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/pulseaudio
+      LC_ALL: C.UTF-8
+      LANG: C.UTF-8
+
+  monitor:
+    command: bin/monitor
+    daemon: simple
+    after:
+      - daemon
+    plugs:
+      - gpio-memory-control
+      - shutdown
+      - spi
+      - serial-port
+      - framebuffer
+    environment:
+      PYTHONPATH: $SNAP/usr/lib/python3/dist-packages:$SNAP/lib/python3.8/site-packages
+      PATH: $SNAP/usr/sbin:$SNAP/usr/bin:$SNAP/sbin:$SNAP/bin:$PATH
+      MONITOR_CACHE: $SNAP_COMMON/cache
+      MPLBACKEND: Agg
+      API_BASE_URL: https://api.prod.incuvers.com
+      API_BASE_PATH: /v1
+      IOT_BASE_URL: a1h6zgnf68qmlj-ats.iot.ca-central-1.amazonaws.com
+      LD_LIBRARY_PATH: $LD_LIBRARY_PATH:$SNAP/lib/tcam-0:$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/blas:$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/lapack:$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/pulseaudio
+      GST_PLUGIN_PATH: $SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/gstreamer-1.0:$SNAP/lib/tcam-0
+      GST_PLUGIN_SYSTEM_PATH: $SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/gstreamer-1.0
+      GST_PLUGIN_SCANNER: $SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/gstreamer1.0/gstreamer-1.0/gst-plugin-scanner
+      GI_TYPELIB_PATH: $SNAP/usr/lib/girepository-1.0:$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/girepository-1.0
+      LC_ALL: C.UTF-8
+      LANG: C.UTF-8
+
+parts:
+  tis:
+    source-type: git
+    source: https://github.com/TheImagingSource/tiscamera
+    source-tag: v-tiscamera-0.13.1
+    plugin: cmake
+    cmake-parameters: [-DBUILD_GST_1_0=ON, -DBUILD_TOOLS=ON, -DBUILD_V4L2=ON, -DBUILD_LIBUSB=ON]
+    build-packages:
+      - g++
+      - pkg-config
+      - uuid-dev
+      - libudev-dev
+      - libgstreamer-plugins-base1.0-dev
+      - libglib2.0-dev
+      - libusb-1.0-0-dev
+      - libzip-dev
+      - python3-setuptools  # may conflict with python3-wheel (bdist_wheel)
+      - libgl1
+      - libglvnd0
+      - libgirepository1.0-dev
+    stage-packages:
+      - gstreamer1.0-tools
+      - libusb-1.0-0
+      - libgstreamer1.0-0
+      - libgstreamer1.0-dev
+      - libgstreamer-plugins-base1.0-0
+      - libgirepository1.0-dev
+      - gstreamer1.0-plugins-good
+      - gstreamer1.0-plugins-bad
+      - liborc-0.4-0
+      - libpcre2-8-0
+      - udev
+      - uvcdynctrl
+      - libgpm2
+      - libslang2
+      - freeglut3
+      - gir1.2-gstreamer-1.0
+      - gir1.2-gst-plugins-base-1.0
+      - gir1.2-gtk-3.0
+    organize:
+      gst-inspect-1.0: bin/gst-inspect-1.0
+      $SNAPCRAFT_PART_SRC/data/uvc-extensions/usb3.xml: ./usr/share/uvcdynctrl/data/199e/usb3.xml
+
+  nmcli:
+    plugin: nil
+    stage-packages:
+      - network-manager
+    organize:
+      usr/bin/nmcli: bin/nmcli
+
+  wiringpi:
+    plugin: nil
+    stage-packages:
+      - wiringpi
+      - libwiringpi2
+    organize:
+      /usr/local/bin/gpio: bin/gpio
+
+  monitor:
+    plugin: python
+    source-type: git
+    source-branch: develop
+    source-depth: 1
+    source: git@github.com:Incuvers/monitor.git
+    build-environment:
+      - PYTHONPATH: $SNAP/usr/lib/python3/dist-packages:$SNAP/lib/python3.8/site-packages
+    build-packages:
+      - build-essential
+      - cython3
+      - python3-dev
+      - python3-pip
+      - python3-pkg-resources
+      - libblas3
+      - liblapack3
+      - libcairo2-dev
+      - libglib2.0-dev
+      - libsdl1.2-dev
+      - libsdl-image1.2-dev
+      - libsdl-mixer1.2-dev
+      - libsdl-ttf2.0-dev
+      - libsdl2-dev
+      - libsdl2-ttf-dev
+      - libsdl2-image-dev
+      - libsdl2-mixer-dev
+      - libsmpeg-dev
+      - libportmidi-dev
+      - libswscale-dev
+      - libavformat-dev
+      - libavcodec-dev
+      - libfreetype6-dev
+      - gcc
+      - pkg-config
+      - libssl-dev
+    stage-packages:
+      - build-essential
+      - libssl-dev
+      - libpython3-stdlib
+      - libpython3.8-stdlib
+      - libpython3.8-minimal
+      - python3-dev
+      - python3-pip
+      - python3-setuptools
+      - python3-wheel
+      - python3-venv
+      - python3-minimal
+      - python3-distutils
+      - python3-pkg-resources
+      - python3.8-minimal
+      - python3-opencv
+      - python3-gi
+      - python3-gst-1.0
+      - pkg-config
+      - libfluidsynth2
+      - libinstpatch-1.0-2
+      - libjack-jackd2-0
+      - libmad0
+      - libmikmod3
+      - libopenal1
+      - libsdl-mixer1.2
+      - libsdl2-2.0-0
+      - libsndio7.0
+      - libxss1
+      - libfreetype6
+      - libx11-6
+      - libsdl1.2debian
+      - libsdl-ttf2.0-0
+      - libsdl-image1.2
+      - libportmidi-dev
+      - libpng16-16
+      - libjpeg8
+      - libatlas-base-dev
+      - libatlas3-base
+      - libblas3
+      - liblapack3
+      - libglib2.0-0
+      - libgirepository-1.0-1
+      - libffi7
+      - libcairo2
+      - libcairo2-dev
+      - libcairo-gobject2
+      - libffi-dev
+      - libsdl2-dev
+      - libsdl2-ttf-dev
+      - libsdl2-image-dev
+      - libsdl2-mixer-dev
+      - libglu1-mesa
+      - freeglut3
+      - avrdude
+      - libwebpdemux2
+      - usbutils

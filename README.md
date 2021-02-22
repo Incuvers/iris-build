@@ -5,7 +5,11 @@
 
 Modified: 2020-02
 
+## `/docker`
 Dockerized github action for building snap applications for the Incuvers Realtime Imaging System (IRIS) platform.
+
+## `/lxd`
+LXD container github action for building snap applications for the Incuvers Realtime Imaging System (IRIS) platform.
 
 ## Action Usage
 ```yaml

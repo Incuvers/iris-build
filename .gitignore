@@ -1,8 +1,8 @@
 *.diff
 .DS_Store
 
-# build artefacts
-build
-
 # ignore keys
 docker/secrets/*.key
+
+# ignore keys
+lxd/secrets/*.key
