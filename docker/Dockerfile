@@ -13,15 +13,15 @@ RUN apt install --yes \
       jq \
       squashfs-tools
 
-# Grab the core snap from the stable channel and unpack it in the proper place
-RUN curl -L $(curl -H 'X-Ubuntu-Series: 16' 'https://api.snapcraft.io/api/v1/snaps/details/core' | jq '.download_url' -r) --output core.snap
-RUN mkdir -p /snap/core
-RUN unsquashfs -d /snap/core/current core.snap
-
 # Grab the core18 snap from the stable channel and unpack it in the proper place
 RUN curl -L $(curl -H 'X-Ubuntu-Series: 16' 'https://api.snapcraft.io/api/v1/snaps/details/core18' | jq '.download_url' -r) --output core18.snap
 RUN mkdir -p /snap/core18
 RUN unsquashfs -d /snap/core18/current core18.snap
+
+# Grab the core20 snap from the stable channel and unpack it in the proper place
+RUN curl -L $(curl -H 'X-Ubuntu-Series: 16' 'https://api.snapcraft.io/api/v1/snaps/details/core20' | jq '.download_url' -r) --output core20.snap
+RUN mkdir -p /snap/core20
+RUN unsquashfs -d /snap/core20/current core20.snap
 
 # Grab the snapcraft snap from the stable channel and unpack it in the proper place
 RUN curl -L $(curl -H 'X-Ubuntu-Series: 16' 'https://api.snapcraft.io/api/v1/snaps/details/snapcraft?channel=stable' | jq '.download_url' -r) --output snapcraft.snap
@@ -35,11 +35,11 @@ RUN snap_version="$(awk '/^version:/{print $2}' /snap/snapcraft/current/meta/sna
 RUN echo 'exec "$SNAP/usr/bin/python3" "$SNAP/bin/snapcraft" "$@"' >> /snap/bin/snapcraft
 RUN chmod +x /snap/bin/snapcraft
 
-# Multi-stage build, only need the snaps from the builder. Copy them one at a
-# time so they can be cached.
-FROM ubuntu:bionic
-COPY --from=builder /snap/core /snap/core
+# Multi-stage build, only need the snaps from the builder. Copy them one at a time so they can be cached.
+FROM arm64v8/ubuntu:latest
+
 COPY --from=builder /snap/core18 /snap/core18
+COPY --from=builder /snap/core20 /snap/core20
 COPY --from=builder /snap/snapcraft /snap/snapcraft
 COPY --from=builder /snap/bin/snapcraft /snap/bin/snapcraft
 

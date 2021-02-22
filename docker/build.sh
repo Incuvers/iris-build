@@ -23,17 +23,21 @@ handler () {
 # perl -pi -e 's/GIT_SHA = .*/GIT_SHA = "${SHA}"/g' ./monitor/__version__.py
 
 # clean snapcraft build container
+printf "%b" "${OKB}Cleaning snap build on host container${NC}\n"
 snapcraft clean;
+printf "%b" "${OKG} ✓ ${NC}complete"
+
+sudo apt update;
 
 # build snapcraft in using host container
-printf "%b" "${OKB}Starting snap build on host container${NC}"
+printf "%b" "${OKB}Starting snap build on host container${NC}\n"
 snapcraft --debug;
 printf "%b" "${OKG} ✓ ${NC}complete"
 
 # push .snap file to s3 bucket
-printf "%b" "${OKB}Pushing $TARGET_FILE to S3 bucket $BUCKET as $OBJECT${NC}"
+printf "%b" "${OKB}Pushing $TARGET_FILE to S3 bucket $BUCKET as $OBJECT${NC}\n"
 ./s3_push.py -i "$TARGET_FILE" -o "$OBJECT" -b "$BUCKET"
-printf "%b" "${OKG} ✓ ${NC}complete"
+printf "%b" "${OKG} ✓ ${NC}complete\n"
 
 # Notify slack channel of build success
 printf "%b" "${OKB}Notifying slack channel of snap build success.${NC}"
