@@ -37,8 +37,7 @@ def main(argv):
     logging.info("Output file: %s", obj)
     logging.info("Bucket: %s", bucket)
 
-    s3 = boto3.client(
-        "s3",
+    s3 = boto3.client("s3",
         aws_access_key_id=os.environ['ACCESS_ID'],
         aws_secret_access_key=os.environ['ACCESS_KEY']
     )
