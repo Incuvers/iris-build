@@ -1,7 +1,7 @@
 #!/bin/bash
-"""
-@brief  Build iris-incuvers core20 snap for arm64 using lxd containers
-"""
+#
+# Build iris-incuvers core20 snap for arm64 using lxd containers
+
 
 # exit on error
 set -e
