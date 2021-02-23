@@ -23,12 +23,12 @@ handler () {
 # clean snapcraft build container
 printf "%b" "${OKB}Cleaning snap build lxd container${NC}\n"
 snapcraft clean --use-lxd
-printf "%b" "${OKG} ✓ ${NC}complete"
+printf "%b" "${OKG} ✓ ${NC}complete\n"
 
 # build snapcraft in using host container
 printf "%b" "${OKB}Starting snap build on host container${NC}\n"
 snapcraft --use-lxd --bind-ssh
-printf "%b" "${OKG} ✓ ${NC}complete"
+printf "%b" "${OKG} ✓ ${NC}complete\n"
 
 # push .snap file to s3 bucket
 printf "%b" "${OKB}Pushing $TARGET_FILE to S3 bucket $BUCKET as $OBJECT${NC}\n"
