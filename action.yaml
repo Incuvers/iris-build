@@ -1,6 +1,12 @@
 ---
 name: Iris Build
-description: Build iris-incuvers snap
+author: Christian Sargusingh
+description: Builds iris-incuvers core20 snap for arm64. 
 runs:
-  using: docker
-  image: docker/Dockerfile
+  using: "composite"
+  steps:
+    - run: ${{ github.action_path }}/lxd/build.sh
+      shell: bash
+# runs:
+#   using: docker
+#   image: docker/Dockerfile
