@@ -38,5 +38,5 @@ printf "%b" "${OKG} ✓ ${NC}complete\n"
 # Notify slack channel of build success
 printf "%b" "${OKB}Notifying slack channel of snap build success.${NC}\n"
 curl -X POST -H 'Content-type: application/json' \
-    --data "{\"text\":\"Snap build server job complete. Download and install the snap file and the build logs here: https://s3.console.aws.amazon.com/s3/buckets/snapbuilds?region=ca-central-1&tab=objects\"}" https://hooks.slack.com/services/"$SLACK_IDENTIFIER"
+    --data "{\"text\":\"Snap build server job complete. Build logs: https://github.com/Incuvers/monitor/actions/workflows/lint.yml. Snap file: https://s3.console.aws.amazon.com/s3/buckets/snapbuilds?region=ca-central-1&tab=objects\"}" https://hooks.slack.com/services/"$SLACK_IDENTIFIER"
 printf "%b" "${OKG} ✓ ${NC}complete"
