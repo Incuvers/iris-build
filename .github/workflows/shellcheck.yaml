@@ -19,4 +19,8 @@ jobs:
         run: sudo apt install shellcheck -y
 
       - name: Run shellcheck linter.
-        run: shellcheck -x docker/build.sh legacy/ lxd/build.sh
+        run: | 
+          cd docker
+          shellcheck -x docker/build.sh
+          cd ../lxd
+          lxd/build.sh
