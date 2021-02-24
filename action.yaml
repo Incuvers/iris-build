@@ -1,7 +1,7 @@
 ---
 name: Iris Build
 author: Christian Sargusingh
-description: Builds iris-incuvers core20 snap for arm64. 
+description: Builds iris-incuvers core20 snap for arm64.
 runs:
   using: "composite"
   steps:
