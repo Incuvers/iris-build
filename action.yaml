@@ -5,7 +5,8 @@ description: Builds iris-incuvers core20 snap for arm64.
 runs:
   using: "composite"
   steps:
-    - run: ${{ github.action_path }}/lxd/build.sh
+    - working-directory: ${{ github.action_path }}/lxd
+      run: build.sh
       shell: bash
 # runs:
 #   using: docker
