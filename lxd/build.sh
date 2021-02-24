@@ -22,7 +22,7 @@ handler () {
 # clean snapcraft build container
 printf "%b" "${OKB}Cleaning snap build artefacts${NC}\n"
 snapcraft clean --use-lxd
-rm -f *.snap
+rm -f -- *.snap
 printf "%b" "${OKG} ✓ ${NC}complete\n"
 
 # build snapcraft in using host container
