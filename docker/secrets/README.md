@@ -1,9 +1,13 @@
 # Secrets
+Modified: 2021-02
+
+## Note on Github Actions & Secret Management
+These secrets are stored as secrets under the Incuvers organization and are passed to this action through environment variables. For the sake of running this server in isolation this folder is available for dumping secrets.
+
 
 Required contents:
 | File           | Reason                                                                         |
 |----------------|--------------------------------------------------------------------------------|
-| pat.key        | Github personal access token for configuring self-hosted action runner servers |
 | slack.key      | Slack API webhook url notification                                             |
 | access_key.key | AWS S3 bucket access key                                                       |
 | access_id.key  | AWS S3 bucket access id                                                        |
