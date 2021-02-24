@@ -18,9 +18,10 @@ jobs:
       - name: Install test dependencies.
         run: sudo apt install shellcheck -y
 
-      - name: Run shellcheck linter.
-        run: | 
-          cd docker
-          shellcheck -x docker/build.sh
-          cd ../lxd
-          lxd/build.sh
+      - name: Shellcheck docker build script
+        working-directory: docker
+        run: shellcheck -x build.sh
+
+      - name: Shellcheck lxd build script
+        working-directory: lxd
+        run: shellcheck -x build.sh
