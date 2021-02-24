@@ -6,7 +6,7 @@ runs:
   using: "composite"
   steps:
     - working-directory: ${{ github.action_path }}/lxd
-      run: build.sh
+      run: ./build.sh
       shell: bash
 # runs:
 #   using: docker
