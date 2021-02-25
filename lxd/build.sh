@@ -8,13 +8,13 @@ set -e
 source .env
 
 # handle all non-zero exit status codes with a slack notification
-trap 'handler $? $LINENO' EXIT
+trap 'handler $?' EXIT
 
 handler () {
     if [ "$1" != "0" ]; then
         printf "%b" "${OKB}Notifying slack channel of snap build failure.${NC}\n"
         curl -X POST -H 'Content-type: application/json' \
-            --data "{\"text\":\"Snap build server job failed with exit status: $1 on line $2\"}" https://hooks.slack.com/services/"$SLACK_IDENTIFIER"
+            --data "{\"text\":\"Snap build server job failed with exit status: $1\"}" https://hooks.slack.com/services/"$SLACK_IDENTIFIER"
         printf "%b" "${OKG} ✓ ${NC}complete\n"
     fi
 }
