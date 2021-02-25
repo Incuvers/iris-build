@@ -13,5 +13,5 @@ Dockerized github action for building core20 snap applications for the Incuvers 
 
 ## Action Usage
 ```yaml
-uses: Incuvers/iris-build-action@master
+uses: Incuvers/iris-build@master
 ```
