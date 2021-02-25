@@ -13,5 +13,14 @@ Dockerized github action for building core20 snap applications for the Incuvers 
 
 ## Action Usage
 ```yaml
-uses: Incuvers/iris-build@master
+snap-build:
+  name: iris snap
+  runs-on: [self-hosted, linux, ARM64]
+  steps:
+    - name: Start IRIS Build Server
+      uses: Incuvers/iris-build-action@master
+      env:
+        SLACK_IDENTIFIER: ${{ secrets.SLACK_NOTIFICATIONS }}
+        ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        ACCESS_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
 ```
