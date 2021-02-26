@@ -133,6 +133,27 @@ parts:
     organize:
       /usr/local/bin/gpio: bin/gpio
 
+  icb:
+  # this parts may fail if the snap is not cleaned
+  # even cleaning the part won't work, manually remove these:
+  # rm -rf /root/.arduino15
+  # rm -rf /root/.local/bin
+
+    plugin: nil
+    source-type: git
+    source-branch: master
+    source-depth: 1
+    source: git@github.com:Incuvers/icb.git
+    override-build: |
+      cd firmware
+      make setup FORCE_DEVBOARD=1
+      mkdir icb_build
+      make 
+    build-packages:
+      - curl
+    organize:
+      $SNAPCRAFT_PART_BUILD/firmware/icb_build/Incuvers_Incubator.ino.hex: lib/firmware/Incuvers_Incubator.ino.hex
+
   monitor:
     plugin: python
     source-type: git
