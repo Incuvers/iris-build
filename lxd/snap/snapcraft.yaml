@@ -134,11 +134,10 @@ parts:
       /usr/local/bin/gpio: bin/gpio
 
   icb:
-  # this parts may fail if the snap is not cleaned
-  # even cleaning the part won't work, manually remove these:
-  # rm -rf /root/.arduino15
-  # rm -rf /root/.local/bin
-
+    # this parts may fail if the snap is not cleaned
+    # even cleaning the part won't work, manually remove these:
+    # rm -rf /root/.arduino15
+    # rm -rf /root/.local/bin
     plugin: nil
     source-type: git
     source-branch: master
