@@ -147,7 +147,7 @@ parts:
       cd firmware
       make setup FORCE_DEVBOARD=1
       mkdir icb_build
-      make 
+      make
     build-packages:
       - curl
     organize:
