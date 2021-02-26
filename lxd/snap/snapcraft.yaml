@@ -134,7 +134,7 @@ parts:
       /usr/local/bin/gpio: bin/gpio
 
   icb:
-    # this parts may fail if the snap is not cleaned
+    # this part may fail if the snap is not cleaned
     # even cleaning the part won't work, manually remove these:
     # rm -rf /root/.arduino15
     # rm -rf /root/.local/bin
@@ -142,7 +142,7 @@ parts:
     source-type: git
     source-branch: master
     source-depth: 1
-    source: git@github.com:Incuvers/icb.git
+    source: git@github.com-icb:Incuvers/icb.git
     override-build: |
       cd firmware
       make setup FORCE_DEVBOARD=1
