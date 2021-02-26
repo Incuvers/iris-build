@@ -158,7 +158,7 @@ parts:
     source-type: git
     source-branch: develop
     source-depth: 1
-    source: git@github.com:Incuvers/monitor.git
+    source: git@github.com-monitor:Incuvers/monitor.git
     build-environment:
       - PYTHONPATH: $SNAP/usr/lib/python3/dist-packages:$SNAP/lib/python3.8/site-packages
     build-packages:
