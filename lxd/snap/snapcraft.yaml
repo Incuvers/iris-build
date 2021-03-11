@@ -29,7 +29,7 @@ apps:
       - network-setup-control
       - network-setup-observe
     environment:
-      PYTHONPATH: $SNAP/usr/lib/python3/dist-packages:$SNAP/lib/python3.8/site-packages
+      PYTHONPATH: $SNAP/lib/python3.8/site-packages:$SNAP/usr/lib/python3/dist-packages
       PATH: $SNAP/usr/sbin:$SNAP/usr/bin:$SNAP/sbin:$SNAP/bin:$PATH
 
   webserver:
@@ -41,7 +41,7 @@ apps:
       - network-bind
     environment:
       PATH: $SNAP/usr/sbin:$SNAP/usr/bin:$SNAP/sbin:$SNAP/bin:$PATH
-      PYTHONPATH: $SNAP/usr/lib/python3/dist-packages:$SNAP/lib/python3.8/site-packages
+      PYTHONPATH: $SNAP/lib/python3.8/site-packages:$SNAP/usr/lib/python3/dist-packages
       FLASK_ENV: production
       MONTIOR_NETPLAN: /etc/netplan
       LD_LIBRARY_PATH: $SNAP/lib/tcam-0:$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/blas:$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/lapack:$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/pulseaudio
@@ -60,7 +60,7 @@ apps:
       - serial-port
       - framebuffer
     environment:
-      PYTHONPATH: $SNAP/usr/lib/python3/dist-packages:$SNAP/lib/python3.8/site-packages
+      PYTHONPATH: $SNAP/lib/python3.8/site-packages:$SNAP/usr/lib/python3/dist-packages
       PATH: $SNAP/usr/sbin:$SNAP/usr/bin:$SNAP/sbin:$SNAP/bin:$PATH
       MONITOR_CACHE: $SNAP_COMMON/cache
       MPLBACKEND: Agg
@@ -160,7 +160,7 @@ parts:
     source-depth: 1
     source: git@github.com-monitor:Incuvers/monitor.git
     build-environment:
-      - PYTHONPATH: $SNAP/usr/lib/python3/dist-packages:$SNAP/lib/python3.8/site-packages
+      - PYTHONPATH: $SNAP/lib/python3.8/site-packages:$SNAP/usr/lib/python3/dist-packages
     build-packages:
       - build-essential
       - cython3
