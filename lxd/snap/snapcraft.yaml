@@ -208,7 +208,6 @@ parts:
       - python3-distutils
       - python3-pkg-resources
       - python3.8-minimal
-      - python3-opencv
       - python3-gi
       - python3-gst-1.0
       - pkg-config
