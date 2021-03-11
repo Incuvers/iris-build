@@ -60,6 +60,11 @@ apps:
       - serial-port
       - framebuffer
     environment:
+      # gi >>            $SNAP/usr/lib/python3/dist-packages
+      # tcam >>          $SNAP/usr/lib/python3/dist-packages
+      # numpy >>         $SNAP/usr/lib/python3/dist-packages
+      # iris packages >> $SNAP/lib/python3.8/site-packages
+      # wiringpi >>      $SNAP/lib/python3.8/site-packages
       PYTHONPATH: $SNAP/lib/python3.8/site-packages:$SNAP/usr/lib/python3/dist-packages
       PATH: $SNAP/usr/sbin:$SNAP/usr/bin:$SNAP/sbin:$SNAP/bin:$PATH
       MONITOR_CACHE: $SNAP_COMMON/cache
