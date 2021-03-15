@@ -2,7 +2,7 @@
 title: IRIS by Incuvers
 name: iris-incuvers
 version: '1.02'
-summary: IRIS
+summary: Incuvers Real-time Imaging System
 description: |
   Accompanying software application for IRIS (Incuvers Real-time Imaging System);
   a personalized, IoT cell incubator with imaging capabilities.
