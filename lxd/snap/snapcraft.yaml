@@ -13,6 +13,11 @@ architectures:
 base: core20
 confinement: devmode
 
+# layout defined for tis precompiled binaries
+layout:
+  /usr:
+    bind: $SNAP/usr
+
 apps:
   daemon:
     command: bin/daemon
@@ -121,7 +126,7 @@ parts:
       - gir1.2-gtk-3.0
     organize:
       gst-inspect-1.0: bin/gst-inspect-1.0
-      $SNAPCRAFT_PART_SRC/data/uvc-extensions/usb3.xml: ./usr/share/uvcdynctrl/data/199e/usb3.xml
+      # $SNAPCRAFT_PART_SRC/data/uvc-extensions/usb3.xml: ./usr/share/uvcdynctrl/data/199e/usb3.xml
 
   nmcli:
     plugin: nil
