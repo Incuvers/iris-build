@@ -14,14 +14,14 @@ base: core20
 confinement: devmode
 
 ## layout defined for tis precompiled binaries
-#layout:
-#  # udev rule 80-theimagingsource-cameras.rules 
+# layout:
+#  # udev rule 80-theimagingsource-cameras.rules
 #  /etc/udev/rules.d:
 #    bind: $SNAP/etc/udev/rules.d
 #  # for the extension files
 #  /usr/share/theimagingsource/tiscamera/uvc-extension:
 #    bind: $SNAP/usr/share/theimagingsource/tiscamera/uvc-extension
-#  # for the tcam-uvc-extension-loader binary 
+#  # for the tcam-uvc-extension-loader binary
 #  /usr/bin:
 #    bind: $SNAP/usr/bin
 
