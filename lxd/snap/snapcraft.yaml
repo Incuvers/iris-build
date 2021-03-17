@@ -1,7 +1,7 @@
 ---
 title: IRIS by Incuvers
 name: iris-incuvers
-version: '1.02'
+version: '0.1.4'
 summary: Incuvers Real-time Imaging System
 description: |
   Accompanying software application for IRIS (Incuvers Real-time Imaging System);
@@ -12,18 +12,6 @@ architectures:
     run-on: arm64
 base: core20
 confinement: devmode
-
-# # layout defined for tis precompiled binaries
-# layout:
-#   # udev rule 80-theimagingsource-cameras.rules
-#   /etc/udev/rules.d:
-#     bind: $SNAP/etc/udev/rules.d
-#   # for the extension files
-#   /usr/share/theimagingsource/tiscamera/uvc-extension:
-#     bind: $SNAP/usr/share/theimagingsource/tiscamera/uvc-extension
-#   # for the tcam-uvc-extension-loader binary
-#   /usr/bin:
-#     bind: $SNAP/usr/bin
 
 apps:
   daemon:
@@ -63,6 +51,8 @@ apps:
   monitor:
     command: bin/monitor
     daemon: simple
+    stop-command: bin/shutdown
+    stop-timeout: 60s
     after:
       - daemon
     plugs:
