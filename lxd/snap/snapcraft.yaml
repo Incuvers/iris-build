@@ -1,7 +1,7 @@
 ---
 title: IRIS by Incuvers
 name: iris-incuvers
-version: '0.1.4'
+version: '0.1.6'
 summary: Incuvers Real-time Imaging System
 description: |
   Accompanying software application for IRIS (Incuvers Real-time Imaging System);
