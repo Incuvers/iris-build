@@ -20,11 +20,11 @@ handler () {
 }
 # examples:
 # STAGE=https://api.prod.incuvers.com
-# VERSION=0.1.7
+# GIT_REF=0.1.7
 # release version from monitor action instantiation
 # update snapcraft.yaml version string
 
-echo $VERSION
+echo $GIT_REF
 echo $STAGE
 
 SNAP_ARCH="arm64"
