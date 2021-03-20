@@ -18,7 +18,21 @@ handler () {
         printf "%b" "${OKG} ✓ ${NC}complete\n"
     fi
 }
+# examples:
+# STAGE=https://api.prod.incuvers.com
+# VERSION=0.1.7
+# release version from monitor action instantiation
+# update snapcraft.yaml version string
 
+echo $VERSION
+echo $STAGE
+
+SNAP_ARCH="arm64"
+# Required for aws s3 push script
+TARGET_FILE="iris-incuvers_${VERSION}_${SNAP_ARCH}.snap"
+BUCKET="snapbuilds"
+OBJECT="iris-incuvers.snap"
+exit 0
 # clean snapcraft build container
 printf "%b" "${OKB}Cleaning snap build artefacts${NC}\n"
 snapcraft clean --use-lxd
