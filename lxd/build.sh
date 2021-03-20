@@ -24,8 +24,9 @@ python3 -m pip install pyyaml
 printf "%b" "${OKB}Starting snap build job${NC}\n"
 printf "%b" "${OKB}-----------------------${NC}\n"
 VERSION=$(echo "$GIT_REF" | awk -F '/' '{print $3}' | cut -c2-)
-export VERSION
-export STAGE
+# export to env for yaml parse
+export VERSION="$VERSION"
+export STAGE="$STAGE"
 printf "%b" "${OKB}Release: ${VERSION}${NC}\n"
 printf "%b" "${OKB}Stage: ${STAGE}${NC}\n"
 
