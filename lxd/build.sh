@@ -18,21 +18,25 @@ handler () {
         printf "%b" "${OKG} ✓ ${NC}complete\n"
     fi
 }
-# examples:
-# STAGE=https://api.prod.incuvers.com
-# GIT_REF=0.1.7
-# release version from monitor action instantiation
-# update snapcraft.yaml version string
 
-echo $GIT_REF
-echo $STAGE
+python3 -m pip install pyyaml
+
+printf "%b" "${OKB}Starting snap build job${NC}\n"
+printf "%b" "${OKB}-----------------------${NC}\n"
+VERSION="$(echo $GIT_REF | awk -F '/' '{print $3}' | cut -c2-)"
+printf "%b" "${OKB}Release: ${VERSION}${NC}\n"
+printf "%b" "${OKB}Stage: ${STAGE}${NC}\n"
 
 SNAP_ARCH="arm64"
 # Required for aws s3 push script
 TARGET_FILE="iris-incuvers_${VERSION}_${SNAP_ARCH}.snap"
 BUCKET="snapbuilds"
 OBJECT="iris-incuvers.snap"
-exit 0
+
+printf "%b" "${OKB}Populating the snapcraft buildspec${NC}\n"
+./yaml_parser.py -i snap/snapcraft.yaml
+printf "%b" "${OKG} ✓ ${NC}complete\n"
+
 # clean snapcraft build container
 printf "%b" "${OKB}Cleaning snap build artefacts${NC}\n"
 snapcraft clean --use-lxd
