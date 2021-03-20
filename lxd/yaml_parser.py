@@ -14,7 +14,7 @@ test.yaml:
     ...
 If the environment variable cannot be found a default value can be specified as a fallback.
 """
-
+import pprint
 import logging
 import yaml
 import re
@@ -40,7 +40,7 @@ def main(argv):
     # LOAD path to yaml from arg
     with open(snap_file, 'r') as stream:
         try:
-            user_cfg = yaml.safe_load(stream)
+            snap = yaml.safe_load(stream)
         except yaml.YAMLError as exc:
             logging.exception("Error parsing yaml: %s", exc)
         except IndexError as exc:
@@ -48,8 +48,8 @@ def main(argv):
         else:
             logging.info('Saving to build directory')
             with open(snap_file, 'w') as outstream:
-                yaml.dump(user_cfg, outstream, default_flow_style=False)
-        logging.info('Yaml parse complete')
+                yaml.dump(snap, outstream, default_flow_style=False)
+        logging.info("Yaml parse complete:\n%s", pprint.pformat(snap))
 
 def path_constructor(loader:yaml.loader.SafeLoader, node:yaml.nodes.ScalarNode) -> str:
     """
