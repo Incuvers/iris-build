@@ -151,10 +151,11 @@ parts:
     source-depth: 1
     source: git@github.com-icb:Incuvers/icb.git
     override-build: |
-      cd firmware
-      make setup FORCE_DEVBOARD=1
-      mkdir icb_build
-      make
+      curl -fsSL https://raw.githubusercontent.com/arduino/arduino-cli/master/install.sh | sh
+      export PATH=$PATH:$PWD/bin
+      cd firmware || exit
+      make setup
+      make compile
     build-packages:
       - curl
     organize:
