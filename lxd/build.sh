@@ -19,7 +19,7 @@ handler () {
     fi
 }
 
-notify() {
+function notify () {
     # Notify slack channel of build success
     printf "%b" "${OKB}Notifying slack channel of snap build success.${NC}\n"
     curl -X POST -H 'Content-type: application/json' \
@@ -70,7 +70,7 @@ printf "%b" "${OKG} ✓ ${NC}complete\n"
 printf "%b" "${OKB}Remove $STAGE snap build artefact${NC}\n"
 rm -f -- *.snap
 printf "%b" "${OKG} ✓ ${NC}complete\n"
-notify()
+notify
 
 # start production snap build phase
 export STAGE="https://api.prod.incuvers.com"
@@ -89,5 +89,5 @@ printf "%b" "${OKG} ✓ ${NC}complete\n"
 printf "%b" "${OKB}Pushing $TARGET_FILE to S3 bucket $BUCKET as $OBJECT${NC}\n"
 ./s3_push.py -i "$TARGET_FILE" -o "$OBJECT" -b "$BUCKET"
 printf "%b" "${OKG} ✓ ${NC}complete\n"
-notify()
+notify
 
