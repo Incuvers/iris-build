@@ -38,8 +38,8 @@ def main(argv):
 
     s3 = boto3.client(
         "s3",
-        aws_access_key_id=os.environ['INPUT_ACCESS_ID'],
-        aws_secret_access_key=os.environ['INPUT_ACCESS_KEY']
+        aws_access_key_id=os.environ['ACCESS_ID'],
+        aws_secret_access_key=os.environ['ACCESS_KEY']
     )
 
     s3.download_file(bucket, target_file, obj) # last argument is filename to save as
