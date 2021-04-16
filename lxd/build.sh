@@ -30,6 +30,7 @@ function notify () {
 ### TEMP INJECTION ###
 # install version controlled snap version from s3
 sudo snap remove snapcraft
+BUCKET="snapbuilds"
 # download our custom snapcraft image from s3 bucket
 ./s3_pull.py -t snapcraft_4.6_arm64.snap -o snapcraft_4.6_arm64.snap -b "$BUCKET"
 sudo snap install snapcraft_4.6_arm64.snap --devmode --classic
@@ -48,7 +49,7 @@ export STAGE="https://api.staging.incuvers.com"
 SNAP_ARCH="arm64"
 # Required for aws s3 push script
 TARGET_FILE="iris-incuvers_${VERSION}_${SNAP_ARCH}.snap"
-BUCKET="snapbuilds"
+
 printf "%b" "${OKB}Release: ${VERSION}${NC}\n"
 printf "%b" "${OKB}Bucket: ${STAGE}${NC}\n"
 printf "%b" "${OKB}Arch: ${SNAP_ARCH}${NC}\n"
