@@ -33,7 +33,7 @@ sudo snap remove snapcraft
 BUCKET="snapbuilds"
 # download our custom snapcraft image from s3 bucket
 ./s3_pull.py -t snapcraft_4.6_arm64.snap -o snapcraft_4.6_arm64.snap -b "$BUCKET"
-sudo snap install snapcraft_4.6_arm64.snap --devmode --classic
+sudo snap install snapcraft_4.6_arm64.snap --dangerous --classic
 
 printf "%b" "${OKB}Starting snap build job${NC}\n"
 printf "%b" "${OKB}-----------------------${NC}\n"
