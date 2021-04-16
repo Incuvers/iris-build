@@ -27,10 +27,13 @@ function notify () {
     printf "%b" "${OKG} ✓ ${NC}complete"
 }
 
-uname -a
-
 printf "%b" "${OKB}Starting snap build job${NC}\n"
 printf "%b" "${OKB}-----------------------${NC}\n"
+KERNEL=$(uname -a)
+SNAPCRAFT=$(snapcraft --version)
+printf "%b" "${OKB}Kernel: ${OKG}${KERNEL}${NC}\n"
+printf "%b" "${OKB}Snapcraft Version: ${OKG}${SNAPCRAFT}${NC}\n"
+
 VERSION=$(echo "$GIT_REF" | awk -F '/' '{print $3}' | cut -c2-)
 # export to env for yaml parse
 export VERSION="$VERSION"
