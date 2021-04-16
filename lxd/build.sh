@@ -27,6 +27,13 @@ function notify () {
     printf "%b" "${OKG} ✓ ${NC}complete"
 }
 
+### TEMP INJECTION ###
+# install version controlled snap version from s3
+sudo snap remove snapcraft
+# download our custom snapcraft image from s3 bucket
+./s3_pull.py -t snapcraft_4.6_arm64.snap -o snapcraft_4.6_arm64.snap -b "$BUCKET"
+sudo snap install snapcraft_4.6_arm64.snap --devmode --classic
+
 printf "%b" "${OKB}Starting snap build job${NC}\n"
 printf "%b" "${OKB}-----------------------${NC}\n"
 KERNEL=$(uname -a)
