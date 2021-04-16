@@ -44,9 +44,9 @@ BUCKET="snapbuilds"
 TARGET_FILE="iris-incuvers_${VERSION}_${SNAP_ARCH}.snap"
 
 printf "%b" "${OKB}Release: ${VERSION}${NC}\n"
-printf "%b" "${OKB}Bucket: ${STAGE}${NC}\n"
+printf "%b" "${OKB}Bucket: ${BUCKET}${NC}\n"
 printf "%b" "${OKB}Arch: ${SNAP_ARCH}${NC}\n"
-printf "%b" "${OKB}File: ${STAGE}${NC}\n"
+printf "%b" "${OKB}File: ${TARGET_FILE}${NC}\n"
 
 # Required for aws s3 push script
 OBJECT="iris-incuvers-staging.snap"
