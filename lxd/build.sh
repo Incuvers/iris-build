@@ -27,7 +27,7 @@ function notify () {
     printf "%b" "${OKG} ✓ ${NC}complete"
 }
 
-python3 -m pip install pyyaml
+uname -a
 
 printf "%b" "${OKB}Starting snap build job${NC}\n"
 printf "%b" "${OKB}-----------------------${NC}\n"
