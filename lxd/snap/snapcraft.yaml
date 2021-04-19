@@ -51,8 +51,8 @@ apps:
   monitor:
     command: bin/monitor
     daemon: simple
-    stop-command: bin/shutdown
-    stop-timeout: 60s
+    # stop-command: bin/shutdown
+    # stop-timeout: 60s
     after:
       - daemon
     plugs:
