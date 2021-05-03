@@ -47,7 +47,7 @@ def main(argv):
         else:
             # manual resolution of version and endpoint  
             snap['version'] = os.environ.get('VERSION')
-            snap['apps']['monitor']['API_BASE_URL'] = os.environ.get('STAGE')
+            snap['apps']['monitor']['environment']['API_BASE_URL'] = os.environ.get('STAGE')
             logging.info('Saving to build directory')
             with open(snap_file, 'w') as outstream:
                 yaml.dump(snap, outstream, default_flow_style=False)
