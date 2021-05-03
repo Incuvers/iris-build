@@ -1,7 +1,7 @@
 ---
 title: IRIS by Incuvers
 name: iris-incuvers
-version: ${VERSION:Undef}
+version:
 summary: Incuvers Real-time Imaging System
 description: |
   Accompanying software application for IRIS (Incuvers Real-time Imaging System);
@@ -71,7 +71,7 @@ apps:
       PATH: $SNAP/usr/sbin:$SNAP/usr/bin:$SNAP/sbin:$SNAP/bin:$PATH
       MONITOR_CACHE: $SNAP_COMMON/cache
       MPLBACKEND: Agg
-      API_BASE_URL: ${STAGE}
+      API_BASE_URL: 
       API_BASE_PATH: /v1
       IOT_BASE_URL: a1h6zgnf68qmlj-ats.iot.ca-central-1.amazonaws.com
       LD_LIBRARY_PATH: $SNAP/lib/tcam-0:$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/blas:$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/lapack:$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/pulseaudio
