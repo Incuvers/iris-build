@@ -11,7 +11,7 @@ architectures:
   - build-on: arm64
     run-on: arm64
 base: core20
-confinement: devmode
+confinement: strict
 
 apps:
   daemon:
@@ -56,7 +56,7 @@ apps:
     after:
       - daemon
     plugs:
-      - gpio-memory-control
+      - gpio
       - shutdown
       - spi
       - serial-port
